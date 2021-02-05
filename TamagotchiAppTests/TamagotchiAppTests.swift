@@ -10,24 +10,48 @@ import XCTest
 
 class TamagotchiAppTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testTamagotchiInititialisesWithCorrectAttributes() {
+        // arrange
+        let tamagotchi = Tamagotchi()
+        
+        // assert
+        XCTAssertEqual(tamagotchi.happyHearts, 5)
+        XCTAssertEqual(tamagotchi.hungryHearts, 5)
+        XCTAssertEqual(tamagotchi.health, 10)
+        XCTAssertEqual(tamagotchi.age, 0)
+        XCTAssertEqual(tamagotchi.weight, 5)
+        XCTAssertEqual(tamagotchi.discipline, 0)
+        XCTAssertEqual(tamagotchi.isIll, false)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testTamagotchiShowStatsMethodReturnsCorrectString() {
+        //arrange
+        let tamagtochi = Tamagotchi()
+        
+        // assert
+        XCTAssertEqual(tamagtochi.showStats(),
+        """
+            Current Tamagotchi Status:
+                Happy Hearts: 5
+                Hungry Hearts: 5
+                Age: 0
+                Weight: 5
+                Health: Healthy
+        """)
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testTamagotchiEatMealMethod() {
+        // arrange
+        let tamagotchi = Tamagotchi()
+        let originalHungryHearts = tamagotchi.hungryHearts
+        let originalWeight = tamagotchi.weight
+        
+        // act
+        tamagotchi.eatMeal()
+        
+        // assert
+        XCTAssertEqual(originalHungryHearts-2, tamagotchi.hungryHearts)
+        XCTAssertEqual(originalWeight+1, tamagotchi.weight)
     }
 
 }
